@@ -2,16 +2,16 @@
 
 void playBell() {
 	AudioClip ac;
-	ac.load("./清华附中上下课铃.mp3");
+	ac.load("./娓呭崕闄勪腑涓婁笅璇鹃搩.mp3");
 	ac.play();
 	Sleep(ac.milliseconds());
 }
 
 bool checkTime(int now, int tms) { // +-1s
-	if(now == tms) return 1;
-	if((now + 1) % 86400 == tms) return 1;
-	if(now == (tms + 1) % 86400) return 1;
-	return 0;
+	if(now == tms) return true;
+	if((now + 1) % 86400 == tms) return true;
+	if(now == (tms + 1) % 86400) return true;
+	return false;
 }
 
 int main() {
