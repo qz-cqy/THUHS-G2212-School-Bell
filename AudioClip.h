@@ -29,7 +29,7 @@ public:
 	AudioClip();
 	~AudioClip();
 	bool load(const std::string&);
-	bool play(int, int);
+	bool play(int start_ms = 0, int end_ms = -1);
 	bool stop();
 	bool pause();
 	bool unpause();
