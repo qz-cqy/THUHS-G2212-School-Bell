@@ -47,7 +47,7 @@ bool AudioClip::load(const std::string& _filename) {
 	return true;
 }
 
-bool AudioClip::play(int start_ms = 0, int end_ms = -1) {
+bool AudioClip::play(int start_ms, int end_ms) {
 	if(end_ms == -1) end_ms = length_ms;
 	std::string cmd;
 	char start_str[16], end_str[16];
