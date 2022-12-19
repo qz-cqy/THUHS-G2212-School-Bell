@@ -2,7 +2,7 @@
 
 void playBell() {
 	AudioClip ac;
-	ac.load("./清华附中上下课铃.mp3");
+	ac.load("./bell.mp3");
 	ac.play();
 	Sleep(ac.milliseconds());
 }
