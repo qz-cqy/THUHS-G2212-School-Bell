@@ -30,11 +30,7 @@ AudioClip::~AudioClip() {
 
 bool AudioClip::load(const std::string& _filename) {
 	filename = _filename;
-	for(unsigned int i = 0; i < filename.length(); i++) {
-		if(filename[i] == '/') {
-			filename[i] = '\\';
-		}
-	}
+	for(char& c : filename) if(c == '/') c = '\\';
 	alias = "mp3_";
 	srand(time(NULL));
 	char randstr[6];
@@ -42,25 +38,17 @@ bool AudioClip::load(const std::string& _filename) {
 	alias.append(randstr);
 	std::string cmd;
 	cmd = "open " + filename + " alias " + alias;
-	if(mci.send(cmd) == false) {
-		return false;
-	}
+	if(mci.send(cmd) == false) return false;
 	cmd = "set " + alias + " time format milliseconds";
-	if(mci.send(cmd) == false) {
-		return false;
-	}
+	if(mci.send(cmd) == false) return false;
 	cmd = "status " + alias + " length";
-	if(mci.send(cmd) == false) {
-		return false;
-	}
+	if(mci.send(cmd) == false) return false;
 	length_ms = atoi(mci.buf);
 	return true;
 }
 
 bool AudioClip::play(int start_ms = 0, int end_ms = -1) {
-	if(end_ms == -1) {
-		end_ms = length_ms;
-	}
+	if(end_ms == -1) end_ms = length_ms;
 	std::string cmd;
 	char start_str[16], end_str[16];
 	_itoa(start_ms, start_str, 10);
@@ -75,31 +63,23 @@ bool AudioClip::play(int start_ms = 0, int end_ms = -1) {
 bool AudioClip::stop() {
 	std::string cmd;
 	cmd = "stop " + alias;
-	if(mci.send(cmd) == false) {
-		return false;
-	}
+	if(mci.send(cmd) == false) return false;
 	cmd = "seek " + alias + " to start";
-	if(mci.send(cmd) == false) {
-		return false;
-	}
+	if(mci.send(cmd) == false) return false;
 	return true;
 }
 
 bool AudioClip::pause() {
 	std::string cmd;
 	cmd = "pause " + alias;
-	if(mci.send(cmd) == false) {
-		return false;
-	}
+	if(mci.send(cmd) == false) return false;
 	return true;
 }
 
 bool AudioClip::unpause() {
 	std::string cmd;
 	cmd = "resume " + alias;
-	if(mci.send(cmd) == false) {
-		return false;
-	}
+	if(mci.send(cmd) == false) return false;
 	return true;
 }
 
