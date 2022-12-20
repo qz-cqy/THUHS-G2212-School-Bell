@@ -45,7 +45,7 @@ int main() {
 		31800, // 16:50:00 L9B
 		34200  // 17:30:00 L9E
 	};
-	while(true) {
+	for(; ; Sleep(1000)) {
 		int now = std::time(0) % 86400;
 		for(int i : tms) {
 			if(checkTime(now, i)) {
